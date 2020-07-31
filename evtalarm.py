@@ -71,7 +71,7 @@ def showdata():
     try:
         database = sqlite3.connect("events.db")
         cursor = database.cursor()
-        alle = "SELECT * FROM allevent"
+        alle = "SELECT * FROM allevent ORDER BY edate,alarmt"
         cursor.execute(alle)
         rows = cursor.fetchall()
         database.commit()
@@ -95,7 +95,7 @@ def showdata():
     tv.heading(4, text="Message")
     tv.heading(5, text="Alarm")
     tv.heading(6, text="Mobile")
-    tv.heading(6, text="Status")
+    tv.heading(7, text="Status")
 
     for i in rows:
         tv.insert("", "end", values=i)
@@ -109,7 +109,7 @@ def comingdata():
     try:
         database = sqlite3.connect("events.db")
         cursor = database.cursor()
-        alle = "SELECT * FROM allevent WHERE edate >= datetime('now') ORDER BY edate LIMIT 5"
+        alle = "SELECT * FROM allevent WHERE estatus = 'active' ORDER BY edate,alarmt LIMIT 5"
         cursor.execute(alle)
         rows = cursor.fetchall()
         database.commit()
