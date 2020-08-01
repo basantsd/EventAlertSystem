@@ -146,10 +146,14 @@ def deletedata():
         cursor = database.cursor()
         if eventname.get() == 'DELETEALLDATA':
             deletedata = ("DELETE FROM allevent")
+            cursor.execute(deletedata)
+            database.commit()
 
-        elif enamess != '' and enamess != None:
+        elif enamess != None:
             for i in enamess:
                 deletedata = ("DELETE FROM allevent WHERE ename = '%s'" %(i))
+                cursor.execute(deletedata)
+                database.commit()
         else:
             messagebox.info(title='Error',message='Enter Right Event First')
 
@@ -159,8 +163,7 @@ def deletedata():
 
     finally:
         if (database):
-            cursor.execute(deletedata)
-            database.commit()
+            
             database.close()
             # print("The SQLite connection is closed")
 
